@@ -1,0 +1,13 @@
+Package: ARG
+Type: Package
+Title: Simulate from the coalescent with recombination
+Version: 0.2
+Date: 2017-06-15
+Author: Ian Wilson
+Maintainer: Ian Wilson <Ian.Wilson@ncl.ac.uk>
+Description: Creates and tests lexical trees for differences in frequency of words (that represent haplotypes) between cases and controls.
+License: GPL (>= 2)
+Imports: 
+        Rcpp (>= 0.12.1)
+LinkingTo: Rcpp
+Description: Coalescent simulations

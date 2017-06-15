@@ -1,0 +1,12 @@
+# Remove the previous line if you edit this file
+
+# Export all names
+useDynLib(ARG)
+exportPattern("^[[:alpha:]]+")
+importFrom(Rcpp, sourceCpp)
+
+
+# Import all packages listed as Imports or Depends
+import(
+  ape
+)
