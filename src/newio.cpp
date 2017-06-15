@@ -1,4 +1,4 @@
-#include "newio.H"
+#include "newio.h"
 #include <stdexcept>
 #include <cstring>
 #include <ctime>
@@ -277,44 +277,22 @@ double getval(const std::string &str, const char *val, bool loud) {
     std::istringstream iss(str);
     if (!findparametername(iss,val)) {
       if (loud) {
-#ifdef USE_R
         Rprintf("%g not found in string %s in findparametername\n",val,str.c_str());
-#else
-        std::cerr << val << " not found in string " << str << " in findparametername" << std::endl;
-#endif
+
       }
     }  else {
         char ch;
         iss >> ch;
         if (ch != '=') {
-#ifdef USE_R
          Rprintf("expected = after %s in string\n",val);
-#else
-          std::cerr << "expected = after " << val << " in string " << str << std::endl;
-#endif
+
         }
 
         iss >> v;
     }
     return v;
 }
-/*************************************************************************/
-/*  function to get a string from keyboard - skipping
-	all blanks in the input - suitable for getting file
-	names for example.  If nothing is entered then
-	def_val is used as a default                   */
-/*************************************************************************/
-#ifndef USE_R
-std::string getstringfromkeyboard(const char *message,const  char *def_val) {
-    std::cerr << "please enter " << message
-    << ", or press <enter> for default (" << def_val << ")\n";
 
-    std::string tmp;
-    getline(std::cin,tmp);
-    if (tmp.empty()) tmp=def_val;
-    return tmp;
-}
-#endif
 //
 //  search the file for the first
 // time that pattern appears, 1 if a success 0 otherwise
@@ -392,30 +370,7 @@ bool findparametername(std::istream &in, const char *pattern) {
     }
     return false;
 }
-#ifndef USE_R
-/** scan an integer vector after "namestring" from input file          */
-std::vector<int> intvector_scan(std::istream &in, const char *namestring,volume vol) {
-    if (findparametername(in,namestring)) {
-        return readintvector(in);
-    } else {
-      if (vol!=quiet)
-        std::cerr << namestring
-		  << " not found in parameter file, using vector of length 0\n";
-        return std::vector<int>(0);
-    }
-}
 
-/** scan an integer vector after "namestring" from input file          */
-std::vector<double> doublevector_scan(std::istream &in, const char *namestring) {
-    if (findparametername(in,namestring)) {
-        return readvector<double>(in);
-    } else {
-        std::cerr << namestring
-        << " not found in parameter file, using vector of length 0\n";
-        return std::vector<double>(0);
-    }
-}
-#endif
 /***************************************************************************/
 char *namescan(std::istream &in, const char *namestring, const char *default_val,volume vol) {
     char *temp=NULL;
@@ -429,10 +384,7 @@ char *namescan(std::istream &in, const char *namestring, const char *default_val
     }
     else if (default_val!=NULL) {
       if (vol!=quiet)
-#ifndef USE_R
-        std::cerr << namestring << " not found: using default "
-		  << default_val << std::endl;
-#endif
+
         temp = new char[201];
         if (!temp) {
           std::ostringstream oss;
@@ -453,10 +405,7 @@ std::string stringscan(std::istream &in, const char *namestring, const char *def
         return nextstring(in);
     } else if (default_val!=NULL) {
       if (vol!=quiet) {
-#ifndef USE_R
-        std::cerr << namestring << " not found: using default "
-		  << default_val << std::endl;
-#endif
+
       }
         return std::string(default_val);
     } else {
@@ -476,23 +425,12 @@ int *charintvector_scan(std::istream &in, char *namestring,int *default_val,volu
     }
     else {
         if (default_val==NULL) {
-          if (vol==loud) {
-#ifndef USE_R
-            std::cerr << namestring << " not found in parameter file, using NULL\n";
-#endif
-          }     
           tmp=NULL;
         }
         else {
             tmp=new int[2];
             tmp[0]=1;
             tmp[1]=*default_val;
-            if (vol==loud) {
-#ifndef USR_R
-                std::cerr << namestring << " not found in parameter file, using "
-                << tmp[1] << std::endl;
-#endif
-            }
         }
     }
     return tmp;

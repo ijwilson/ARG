@@ -2,9 +2,7 @@
 #ifndef NEWIO_H___
 #define NEWIO_H___
 
-#ifdef USE_R
 #include <R.h>
-#endif
 
 #include <cstdio> // for EOF
 #include <cstdlib>
@@ -20,11 +18,6 @@
 #include <bitset>
 #include <limits>
 #include <stdexcept>
-
-
-#ifdef USETNT
-#include <tnt/tnt.h>
-#endif
 
 using std::istream;
 using std::ostream;
@@ -62,43 +55,6 @@ std::vector<double> doublevector_scan(std::istream &in, const char *namestring);
 template <typename T>
 const std::string stemLeafFilename(const T &stem, const char *leaf,  char sep='.');
 
-/** A class to make logging to file of errors and messages easier    
- * Allows you to write both to an output stream (cerr by deafault) and 
- * to a file */
-#ifndef USE_R
-class logger {
-public:
-  logger(const char *filename, ostream &screenstream=std::cerr)
-    :logfile(filename),screen(screenstream) {
-    if (!logfile) {
-      std::ostringstream oss;
-      oss << "Error opening logfile " << filename << std::endl;
-      throw std::runtime_error(oss.str().c_str());
-    }
-  }
-  ~logger() {
-    logfile.close();
-  }
-  void operator()(const std::exception &e) throw() {
-     logfile << "error: " << e.what();
-     screen  << "error: " << e.what();
-#ifdef USE_R
-     Rprintf("error %s:", e.what());
-#else
-     std::cerr << "error: " << e.what();
-#endif 
-    logfile.flush();
-  }
-  void operator()(const char *message,bool usescreen=true) {
-    logfile << message;
-    if (usescreen) screen  << message;
-    logfile.flush();
-  }
-private:
-  std::ofstream logfile;
-  ostream &screen;
-};
-#endif
 /** 
  * My own exception class - need to work on this           
  */
@@ -106,22 +62,13 @@ class ioerror: public std::exception {
  public:
   template<typename T> 
   ioerror(const char *mess, const T &add): message(jointext(mess,add).c_str()) {
-#ifdef USE_R
     Rprintf(message.c_str());
-#else
-    std::cerr << message;
-#endif
-   
   }
 
   ioerror(const char *mess)
     :message(mess)  {
-#ifdef USE_R
     Rprintf(message.c_str());
-#else
-    std::cerr << message;
-#endif
-    
+
   };
 
   ~ioerror() throw() {
@@ -140,20 +87,14 @@ class ijwerror: public std::exception {
  public:
   template<typename T> 
   ijwerror(const char *mess, const T &add): message(jointext(mess,add).c_str()) {
-#ifdef USE_R
     Rprintf(message.c_str());
-#else
-    std::cerr << message;
-#endif
+
   }
 
   ijwerror(const char *mess)
     :message(mess)  {
-#ifdef USE_R
     Rprintf(message.c_str());
-#else
-    std::cerr << message;
-#endif
+
   };
 
   ~ijwerror() throw() {
@@ -268,11 +209,8 @@ template <class T>
 void printvec(const std::vector<T> &u) {
   std::ostringstream oss;
    std::copy(u.begin(),u.end(),std::ostream_iterator<T>(oss," "));
-#ifdef USE_R
    Rprintf(oss.str().c_str());
-#else   
-   std::cerr << oss.str() << std::endl;
-#endif
+
 
 }
 
@@ -295,16 +233,7 @@ void printvectorfixed(std::ostream &o,const std::vector<T> &u,int precision=5) {
   }
   o << std::endl;
 }
-#ifdef USETNT
-/** read a vector from the TNT::Array format    */
-template <class T>
-std::vector<T> readvector(std::istream &in,T dummy) {
-  TNT::Array1D<T> a;
-  in >> a;
 
-  return std::vector<T>(&a[0],&a[0]+a.dim());
-}
-#endif
 template <typename T>
 std::vector <std::vector<T> > readmat(std::istream &in,int rows, int cols, T dummy)
 {
@@ -347,11 +276,9 @@ T scan(std::istream &in, const char *namestring,const T &default_val, volume vol
           oss << namestring
 		  << " not found in parameter file, using "
 		  << default_val << std::endl;
-#ifdef USE_R
+          
           Rprintf("%s",oss.str().c_str());
-#else
-          std::cerr << oss.str();
-#endif
+
         }
       return default_val;
     }
@@ -371,11 +298,8 @@ std::pair<S,T> pair_scan(std::istream &in, const char *namestring,const std::pai
           
     oss  << namestring
          << " not found in parameter file, using (" << def.first << "," << def.second << ")" << std::endl;
-#ifdef USE_R
     Rprintf("%s",oss.str().c_str());
-#else
-    std::cerr << oss.str();
-#endif
+
     }
     return def;
   }

@@ -324,10 +324,7 @@ namespace GenTL {
             ch=skipblank(in);
             if (quote) {
                 if (ch!='\'') {
-#ifndef USE_R
-                    std::cerr << "warning - no information at internal node, trying to continue";
-                    std::cerr << " putting back " << char(ch) << std::endl;
-#endif
+
                     in.putback(ch);
                 } else {
                     if (uselabel) in >> lab;
@@ -348,9 +345,7 @@ namespace GenTL {
         T d(0);
         if (quote) {
             if (ch!='\'') {
-#ifndef USE_R
-                std::cerr << "warning - no information at node, trying to continue\n";
-#endif
+
                 in.putback(ch);
             } else {
                 if (uselabel) in >> lab;

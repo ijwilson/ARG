@@ -3,6 +3,7 @@
  */
 #ifndef CPPUTIL_H_
 #define CPPUTIL_H_
+
 #include <cstdlib>
 #include <cmath>
 #include <iostream>
@@ -10,11 +11,6 @@
 #include <sstream>
 #include <numeric>
 #include <cassert>
-
-#ifndef USE_R
-#include "gsl/gsl_cdf.h"
-#endif
-
 
 #ifdef CHECK
 #define LOG mylog
@@ -37,10 +33,7 @@ double lgamma(double xx);
 #endif
 
 // some mathematical constants
-// #ifndef USE_R
-// const double  M_1_SQRT_2PI=	0.398942280401432677939946059934;
-// const double  M_SQRT_32=	5.656854249492380195206754896838;
-// #endif
+
 const double LMY_SQRT_2PI =-0.918938533204672669540968854562;
 
 #ifdef CHECK
@@ -123,12 +116,7 @@ double log_D(const double *b, int n);
 // functionoids
 extern lfactorial lfactrl;
 
-#ifndef USE_R
-template <typename T>
-double cumnorm(T ox, double mean, double sd) {
-  return gsl_cdf_gaussian_P(ox-mean,sd) ;
-}
-#endif
+
 
 
 template <typename T>

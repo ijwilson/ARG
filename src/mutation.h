@@ -7,7 +7,7 @@
 #include <stdexcept>
 // utility
 #include "ijw_rand.h"
-#include "rnodet.H"
+#include "rnodet.h"
 
 namespace GenTL {
   /** recursively write leaves   */

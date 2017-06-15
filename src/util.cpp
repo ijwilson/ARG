@@ -1,12 +1,7 @@
-#include <cmath>
-#include <cassert>
-#include <sstream>
-#include <stdexcept>
-#include "util.H"
-#include "utilityfunctionals.H"
-#ifdef USE_R
-#include <R.h>
-#endif
+
+#include "util.h"
+#include "utilityfunctionals.h"
+
 /************************************************************************/
 /*  A function that is needed for WIN32's - where there is no
 lgamma defined.  Also needed if you want agreement between
@@ -26,15 +21,10 @@ extern "C" {
     /* Error handler for my routines     
      * to make sure that old routines that include cutil.h work*/
   {
-#ifdef USE_R
     Rprintf("Run-time error in ijw's code...\n");
     Rprintf("%s\n",message);
     Rprintf("...I hoped I wouldn't have to do this but...\n");
-#else
-    std::cerr <<  "Run-time error in ijw's code...\n";
-    std::cerr << message <<  "\n";
-    std::cerr <<  "...I hoped I wouldn't have to do this but...\n";
-#endif
+
 throw std::runtime_error(message);
   }
 }

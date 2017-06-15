@@ -307,11 +307,8 @@ public:
   }
 
   double log_pdf(const double &x) const {
-#ifdef USE_R
     return R::dlnorm(x,_p[0],_p[1],1);
-#else
-    return log(gsl_ran_lognormal_pdf(x,_p[0],_p[1]));
-#endif
+
   }
   bool proper() const {
     return true;
@@ -622,7 +619,6 @@ public:
   double log_pdf(const std::vector<double> &x)  const {
     // toremove
     assert(x.size()==_p.size());
-#ifdef USE_R
   double lx=0.0,sum=0.0,temp=0.0;
     for (size_t i=0;i<x.size();i++) {
       lx += (_p[i]-1.0)*log(x[i]);
@@ -631,9 +627,7 @@ public:
     }
     lx += lgamma(sum) - temp;
     return lx;
-#else
-    return log(gsl_ran_dirichlet_pdf(x.size(),&_p[0],&x[0]));
-#endif
+
   }
 
   ostream &print(ostream &o) const {

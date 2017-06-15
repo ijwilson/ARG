@@ -5,9 +5,9 @@
 #include <stdexcept>
 #include <sstream>
 
-#include "ijw_rand.H"
-#include "utilityfunctionals.H"
-#include "rnodet.H"
+#include "ijw_rand.h"
+#include "utilityfunctionals.h"
+#include "rnodet.h"
 
 typedef std::deque<double> RATEARRAY;
 

@@ -7,7 +7,6 @@ using namespace GenTL;
 
 /******************************************************************************************/
 /******************************************************************************************/
-/******************************************************************************************/
 /** Pick the migration event             */
 /* returns a pair that is the line which moves
  * and the location to which it is going to move */
@@ -82,7 +81,7 @@ double structured_coalescent::next(const double &time) {
     return coal.first;
   }
 };
-/** which lines coalesce?  */
+/** ------------------ which lines coalesce?  ------------------    */
 std::pair<int, int> structured_coalescent::coalchromo() {
 #ifdef CHECK
 	std::cout << " in coalchromo - whichcoal = "
@@ -96,7 +95,7 @@ std::pair<int, int> structured_coalescent::coalchromo() {
 	  return PickCoalescence();
 	}
       };
- /** update after a coalescent                                     */
+/** ------------------      update after a coalescent   ------------------       */
 void structured_coalescent::UpdateCoalescence(std::pair<int,int> &lines, int remove) {
 	assert(remove==1||remove==2);
 	assert(lines.first>lines.second);
@@ -176,7 +175,7 @@ void  structured_coalescent::migrate(const std::pair<int,int> &lineto) {
   where_[lineto.first]=lineto.second;
   mig_rate = std::accumulate(rates_out.begin(),rates_out.end(),0.0);
 };
-/** constructor                                                          */
+/** -------------------- constructor ----------------------------------  */
 structured_coalescent::structured_coalescent(const std::vector<int> &where
 					     ,growthmodel *gm, mig_matrix &m
 					     ,rng &r):
@@ -187,7 +186,6 @@ structured_coalescent::structured_coalescent(const std::vector<int> &where
     mig_rate += rates_out[j];
   }
 };
-/********************************************************************************************/
 /********************************************************************************************/
 /********************************************************************************************/
 splitting_coalescent::splitting_coalescent(const std::vector<int> &where
@@ -249,7 +247,7 @@ void splitting_coalescent::fixpoptree()
  }
 
 
-/** which lines coalesce?  */
+/** ----------------- which lines coalesce? --------------------------- */
 std::pair<int, int>  splitting_coalescent::coalchromo() {
   if (whichcoal<0) { // no coalescence, just a fusion event
     fixpoptree();
@@ -259,7 +257,7 @@ std::pair<int, int>  splitting_coalescent::coalchromo() {
   }
 };
 
-/** Pick the coalescence event                     */
+/** ------------------- Pick the coalescence event --------------------  */
 std::pair<int,int> subdivcoal::PickCoalescence()  {
   std::pair <int,int> pr= lrand.sample2intsorted(0,left_[whichcoal]-1);
 #ifdef CHECK
@@ -525,21 +523,15 @@ coalescent *create_coalescent(int ss,const std::string &growth_model,
       } 
     }
     catch (std::exception &e) {
-#ifdef USE_R    
       std::ostringstream oss;
       oss << "error: " << e.what() << "\n";
       Rprintf(oss.str().c_str());
-#else     
-      std::cerr << "error: " << e.what() << "\n";
-#endif
+
       throw;
     }
     catch (...) {
-#ifdef USE_R
       Rprintf("unknown exception in create_coalescent");
-#else
-      std::cerr << "unknown exception in create_coalescent";
-#endif
+
       throw;
     }
 }
