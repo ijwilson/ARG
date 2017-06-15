@@ -46,6 +46,7 @@ lines(treeheight(b),col="blue");
 axis(1)
 axis(2)
 rm(a)
-q()
+rm(b)
+gc()
 
 */

@@ -30,6 +30,8 @@ public:
     ,c(new GenTL::structured_coalescent(location,g,*mm,r))
     ,tr(rec.size()+1,rec,*c,r,recomb) {
   };
+  
+
   std::vector<int> mutate(int var,const std::string &a,rng &r);
   void STRmutate(int pos, double theta, rng &r);
   
