@@ -90,6 +90,7 @@ public:
            DeleteObject());
     for_each(sample.begin(),sample.end(),
              DeleteObject());
+    Rprintf("runing destructor on ARG\n");
   }
   /** prune the ancestral recombination graph  */
   void prune(const std::vector<size_t> &wh) {     
