@@ -3,8 +3,8 @@
 #define __NODE__H__T_IJW
 
 #include <stack>
-#include "gsl_distributions.H"
-#include "coalescent.H"
+#include "gsl_distributions.h"
+#include "coalescent.h"
 
 
 namespace GenTL {

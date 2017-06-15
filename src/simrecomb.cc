@@ -8,13 +8,13 @@
 #include <vector>
 #include <sstream>                // for ostringstream
 #include <fstream>
-#include "ARG.H"
-#include "nodet.H"                // for node and tree
-#include "coalescent.H"
-#include "ascertain.H"
-#include "growthmodel.H"
-#include "migmatrix.H"
-#include "mutation.H"
+#include "ARG.h"
+#include "nodet.h"                // for node and tree
+#include "coalescent.h"
+#include "ascertain.h"
+#include "growthmodel.h"
+#include "migmatrix.h"
+#include "mutation.h"
 
 
 class simrecomb {

@@ -1,12 +1,12 @@
-#include "migmatrix.H"
-#include "newio.H"
+#include "migmatrix.h"
+#include "newio.h"
 #include <string>
 #include <vector>
 #include <sstream>
 #include <stdexcept>
 #include <cstdlib>
 
-#include "util.H"
+#include "util.h"
 
 // bool IsSquare(int n, int &siz)
 // {

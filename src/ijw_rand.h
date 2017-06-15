@@ -5,7 +5,7 @@
 
 #include <cassert>
 #include <stdexcept>  // for underflow_error
-#include "utilityfunctionals.H"
+#include "utilityfunctionals.h"
 //#include <Rmath.h>
 #include <Rcpp.h>
 

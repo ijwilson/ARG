@@ -1,7 +1,7 @@
 //#include "GenTL/coalescent.h"
 //#include "GenTL/nodet.h"
-#include "coalescent.H"
-#include "nodet.H"
+#include "coalescent.h"
+#include "nodet.h"
 #include "ijw_rand.h"
 using namespace GenTL; 
 

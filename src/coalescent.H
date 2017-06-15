@@ -2,11 +2,11 @@
 #ifndef COALESCENT_H_
 #define COALESCENT_H_
 
-#include "growthmodel.H"
-#include "migmatrix.H"
+#include "growthmodel.h"
+#include "migmatrix.h"
 #include "ijw_rand.h"
-#include "gsl_sort.H"
-#include "newio.H"
+#include "gsl_sort.h"
+#include "newio.h"
 
 /** \brief a class for keeping track of coalescent times and event
  *

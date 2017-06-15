@@ -1,5 +1,5 @@
-#include "growthmodel.H"
-#include "newio.H"
+#include "growthmodel.h"
+#include "newio.h"
 #include <string>
 #include <vector>
 #include <sstream>

@@ -4,10 +4,10 @@
 
 #include <vector>
 #include <string>
-#include "ARG.H"
+#include "ARG.h"
 #include "ijw_rand.h"
-#include "mutation.H"
-#include "utilityfunctionals.H" // for cumsum
+#include "mutation.h"
+#include "utilityfunctionals.h" // for cumsum
 
 namespace GenTL {
   /** A class to automate ascertaiment of variable sites from a tree         */

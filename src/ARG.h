@@ -7,13 +7,13 @@
 #include <stdexcept>
 //#include "tnt/tnt.h"
 // utilities
-#include "utilityfunctionals.H" // for DeleteObject
+#include "utilityfunctionals.h" // for DeleteObject
 // Genetics Headers
-#include "gentldeclr.H"
-#include "recombinationrates.H"
-#include "rnodet.H"
-#include "nodet.H"
-#include "coalescent.H"
+#include "gentldeclr.h"
+#include "recombinationrates.h"
+#include "rnodet.h"
+#include "nodet.h"
+#include "coalescent.h"
 
 namespace GenTL {
 /** The default collector class - just counts the recombinations  *
