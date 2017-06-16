@@ -95,31 +95,7 @@ extern "C" {
     ARG.push_back(new simrecomb(*ss,*sites,rr,gm,r));
     *count=ARG.size()-1;
   }
-  /**  extract the height of the trees in the ARG          */
-  void treeheight(int *which, double *times) {
-    size_t sites=ARG.sites(*which);
-    for (size_t i=0;i<sites;i++) {
-      times[i]=ARG[*which]->tr.root[i]->time();
-    }
-  }
-  /** extract the tree lengths from the trees in the ARG   */
-  void treelength(int *which, double *times) {
-    size_t sites=ARG.sites(*which);
-    for (size_t i=0;i<sites;i++) times[i]=ARG[*which]->tr.length(i);
-  }
-  /** Get the mutations at *var sites in the ARG          */
-  void mutate(int *whichARG, int *var, int *data, int *u, char **ascert) {
-    rng r;
-    std::string a(*ascert);
-    simrecomb::ARGtype &st=ARG[*whichARG]->tr;
-    int ss=st.sample.size();
-    std::vector<int> use=ARG[*whichARG]->mutate(*var,a,r);
-    for (size_t i=0;i<use.size();i++) u[i]=use[i];
-    int count=0;
-    for (int i=0;i<ss;i++) 
-      for (int j=0;j< *var;j++) 
-        data[count++]=st.sample[i]->data()[use[j]];
-  }
+
   /** Get stepping stone model mutations at positions gives by pos           */
   void STRmutate(int *whichARG, double *theta, int *pos, int *npos, int *data)
   {
@@ -333,14 +309,6 @@ extern "C" {
     
     
   }
-  /** Get the TMRCA between two leaves at position pos                        */
-  void TMRCA(int *whichARG, int *position, int *samps, double *tim) {
-    simrecomb::ARGtype &st=ARG[*whichARG]->tr;
-    *tim= st.TMRCA(samps[0],samps[1],*position);
-  }
-  /** remove an arg for memory  */
-  void removeARG(int *which) {
-    ARG.destroy(*which);
-  }
+
 }
 

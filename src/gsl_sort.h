@@ -6,7 +6,6 @@
 
 #include "Rmath.h"
 
-
 #undef sexp
 
 class gsl_index {
@@ -29,7 +28,7 @@ public:
     return p[i];
   }
   private:
-  int *p;
+    int *p;
 };
 
 

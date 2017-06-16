@@ -5,9 +5,9 @@
 
 using namespace Rcpp;
 
-// simplesim_rcpp
-SEXP simplesim_rcpp(int ss, int sites, double rec, const std::string growthmod);
-RcppExport SEXP ARG_simplesim_rcpp(SEXP ssSEXP, SEXP sitesSEXP, SEXP recSEXP, SEXP growthmodSEXP) {
+// simplesim
+SEXP simplesim(int ss, int sites, double rec, const std::string growthmod);
+RcppExport SEXP ARG_simplesim(SEXP ssSEXP, SEXP sitesSEXP, SEXP recSEXP, SEXP growthmodSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -15,7 +15,22 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< int >::type sites(sitesSEXP);
     Rcpp::traits::input_parameter< double >::type rec(recSEXP);
     Rcpp::traits::input_parameter< const std::string >::type growthmod(growthmodSEXP);
-    rcpp_result_gen = Rcpp::wrap(simplesim_rcpp(ss, sites, rec, growthmod));
+    rcpp_result_gen = Rcpp::wrap(simplesim(ss, sites, rec, growthmod));
+    return rcpp_result_gen;
+END_RCPP
+}
+// mmsim
+SEXP mmsim(Rcpp::IntegerVector location, int sites, double rec, const std::string growthmod, const std::string migmodel);
+RcppExport SEXP ARG_mmsim(SEXP locationSEXP, SEXP sitesSEXP, SEXP recSEXP, SEXP growthmodSEXP, SEXP migmodelSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Rcpp::IntegerVector >::type location(locationSEXP);
+    Rcpp::traits::input_parameter< int >::type sites(sitesSEXP);
+    Rcpp::traits::input_parameter< double >::type rec(recSEXP);
+    Rcpp::traits::input_parameter< const std::string >::type growthmod(growthmodSEXP);
+    Rcpp::traits::input_parameter< const std::string >::type migmodel(migmodelSEXP);
+    rcpp_result_gen = Rcpp::wrap(mmsim(location, sites, rec, growthmod, migmodel));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -30,10 +45,64 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// treelength
+Rcpp::NumericVector treelength(SEXP ptr);
+RcppExport SEXP ARG_treelength(SEXP ptrSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< SEXP >::type ptr(ptrSEXP);
+    rcpp_result_gen = Rcpp::wrap(treelength(ptr));
+    return rcpp_result_gen;
+END_RCPP
+}
+// mutate
+Rcpp::List mutate(SEXP ptr, int var, const std::string ascert);
+RcppExport SEXP ARG_mutate(SEXP ptrSEXP, SEXP varSEXP, SEXP ascertSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< SEXP >::type ptr(ptrSEXP);
+    Rcpp::traits::input_parameter< int >::type var(varSEXP);
+    Rcpp::traits::input_parameter< const std::string >::type ascert(ascertSEXP);
+    rcpp_result_gen = Rcpp::wrap(mutate(ptr, var, ascert));
+    return rcpp_result_gen;
+END_RCPP
+}
+// TMRCA
+double TMRCA(SEXP ptr, int position, int sample1, int sample2);
+RcppExport SEXP ARG_TMRCA(SEXP ptrSEXP, SEXP positionSEXP, SEXP sample1SEXP, SEXP sample2SEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< SEXP >::type ptr(ptrSEXP);
+    Rcpp::traits::input_parameter< int >::type position(positionSEXP);
+    Rcpp::traits::input_parameter< int >::type sample1(sample1SEXP);
+    Rcpp::traits::input_parameter< int >::type sample2(sample2SEXP);
+    rcpp_result_gen = Rcpp::wrap(TMRCA(ptr, position, sample1, sample2));
+    return rcpp_result_gen;
+END_RCPP
+}
+// pruneARG
+void pruneARG(SEXP ptr, Rcpp::IntegerVector samples);
+RcppExport SEXP ARG_pruneARG(SEXP ptrSEXP, SEXP samplesSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< SEXP >::type ptr(ptrSEXP);
+    Rcpp::traits::input_parameter< Rcpp::IntegerVector >::type samples(samplesSEXP);
+    pruneARG(ptr, samples);
+    return R_NilValue;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
-    {"ARG_simplesim_rcpp", (DL_FUNC) &ARG_simplesim_rcpp, 4},
+    {"ARG_simplesim", (DL_FUNC) &ARG_simplesim, 4},
+    {"ARG_mmsim", (DL_FUNC) &ARG_mmsim, 5},
     {"ARG_treeheight", (DL_FUNC) &ARG_treeheight, 1},
+    {"ARG_treelength", (DL_FUNC) &ARG_treelength, 1},
+    {"ARG_mutate", (DL_FUNC) &ARG_mutate, 3},
+    {"ARG_TMRCA", (DL_FUNC) &ARG_TMRCA, 4},
+    {"ARG_pruneARG", (DL_FUNC) &ARG_pruneARG, 2},
     {NULL, NULL, 0}
 };
 
