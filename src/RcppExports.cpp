@@ -70,16 +70,15 @@ BEGIN_RCPP
 END_RCPP
 }
 // TMRCA
-double TMRCA(SEXP ptr, int position, int sample1, int sample2);
-RcppExport SEXP ARG_TMRCA(SEXP ptrSEXP, SEXP positionSEXP, SEXP sample1SEXP, SEXP sample2SEXP) {
+double TMRCA(SEXP graph, int position, Rcpp::IntegerVector samps);
+RcppExport SEXP ARG_TMRCA(SEXP graphSEXP, SEXP positionSEXP, SEXP sampsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< SEXP >::type ptr(ptrSEXP);
+    Rcpp::traits::input_parameter< SEXP >::type graph(graphSEXP);
     Rcpp::traits::input_parameter< int >::type position(positionSEXP);
-    Rcpp::traits::input_parameter< int >::type sample1(sample1SEXP);
-    Rcpp::traits::input_parameter< int >::type sample2(sample2SEXP);
-    rcpp_result_gen = Rcpp::wrap(TMRCA(ptr, position, sample1, sample2));
+    Rcpp::traits::input_parameter< Rcpp::IntegerVector >::type samps(sampsSEXP);
+    rcpp_result_gen = Rcpp::wrap(TMRCA(graph, position, samps));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -101,7 +100,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"ARG_treeheight", (DL_FUNC) &ARG_treeheight, 1},
     {"ARG_treelength", (DL_FUNC) &ARG_treelength, 1},
     {"ARG_mutate", (DL_FUNC) &ARG_mutate, 3},
-    {"ARG_TMRCA", (DL_FUNC) &ARG_TMRCA, 4},
+    {"ARG_TMRCA", (DL_FUNC) &ARG_TMRCA, 3},
     {"ARG_pruneARG", (DL_FUNC) &ARG_pruneARG, 2},
     {NULL, NULL, 0}
 };

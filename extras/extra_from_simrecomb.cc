@@ -285,14 +285,7 @@ extern "C" {
     tree[os.size()]=';';
     recursively_destroy_node(extractroot);
   }
-  /** prune an ancestral recombination graph                                  */
-  void pruneARG(int *which, int *samples, int *nsamps) {
-    simrecomb::ARGtype &st=ARG[*which]->tr;
-    
-    std::vector<size_t> wh(samples,samples + (*nsamps));
-    st.prune(wh);
-    
-  }
+
   /** See if we can get some haplogroups at a position   */
   void haplogroups(int *whichARG, int *position, double *minsplit, int *hg) {
     simrecomb::ARGtype &st=ARG[*whichARG]->tr;

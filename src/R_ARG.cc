@@ -61,10 +61,9 @@ Rcpp::NumericVector treelength(SEXP ptr) {
   return times;
 }
 
-
 /** Get the mutations at var sites in the ARG          */
 // [[Rcpp::export]]
-Rcpp::List mutate(SEXP ptr, int var, const std::string ascert) {
+Rcpp::List mutate(SEXP ptr, int var, const std::string ascert="panel(3)") {
   rng r;
   Rcpp::XPtr< simrecomb > s(ptr);
   simrecomb::ARGtype &st=s->tr;
@@ -85,11 +84,10 @@ Rcpp::List mutate(SEXP ptr, int var, const std::string ascert) {
 
 /** Get the TMRCA between two leaves at position pos                        */
 // [[Rcpp::export]]
-double  TMRCA(SEXP ptr, int position, int sample1, int sample2) {
-  Rcpp::XPtr< simrecomb > s(ptr);
-  return s->tr.TMRCA(sample1, sample2, position-1);
+double  TMRCA(SEXP graph, int position, Rcpp::IntegerVector samps) {
+  Rcpp::XPtr< simrecomb > s(graph);
+  return s->tr.TMRCA(samps[1]-1, samps[2]-1, position-1);
 }
-
 
 /** prune an ancestral recombination graph                                  */
 // [[Rcpp::export]]
@@ -101,16 +99,16 @@ void pruneARG(SEXP ptr, Rcpp::IntegerVector samples) {
 }
 
 
-
 /*** R
 library(ARG)
 a <- simplesim(500, 20000, 0.01, "constant")
 b <- simplesim(500, 20000, 0.01, "exponential(1)")
 
-m <- mmsim(rep(c(1,2),c(250,250)), 1000, 0.01, "constant", "island(2,1)")
+m <- mmsim(rep(c(1,2),c(250,250)), 20000, 0.01, "constant", "island(2,1)")
 
-ma <- mutate(a, 1000, "panel(10")
-mb <- mutate(b, 1000, "panel(10")
+ma <- mutate(a, 1000)
+mb <- mutate(b, 1000)
+mm <- mutate(m, 1000)
 
 opar=par(mfrow=c(2,1))
 

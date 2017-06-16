@@ -17,12 +17,12 @@ treelength <- function(ptr) {
     .Call('ARG_treelength', PACKAGE = 'ARG', ptr)
 }
 
-mutate <- function(ptr, var, ascert) {
+mutate <- function(ptr, var, ascert = "panel(3)") {
     .Call('ARG_mutate', PACKAGE = 'ARG', ptr, var, ascert)
 }
 
-TMRCA <- function(ptr, position, sample1, sample2) {
-    .Call('ARG_TMRCA', PACKAGE = 'ARG', ptr, position, sample1, sample2)
+TMRCA <- function(graph, position, samps) {
+    .Call('ARG_TMRCA', PACKAGE = 'ARG', graph, position, samps)
 }
 
 pruneARG <- function(ptr, samples) {
