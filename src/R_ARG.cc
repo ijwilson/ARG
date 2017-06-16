@@ -5,11 +5,10 @@
 
 
 // [[Rcpp::export]]
-SEXP simplesim(int ss, int sites, double rec, const std::string growthmod) {
+SEXP simplesim(int ss, int sites, Rcpp::NumericVector rec, const std::string growthmod) {
   try {
     rng r;
-    std::vector<double> rr(sites-1, rec);
-
+    std::vector<double> rr(rec.begin(), rec.end()); 
     simrecomb *s = new simrecomb(ss, sites, rr, growthmod, r);
     Rcpp::XPtr< simrecomb > pt(s, true);          // get pointer as SEXP
     return pt;
