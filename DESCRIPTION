@@ -1,4 +1,4 @@
-Package: ARG
+Package: ARGRcpp
 Type: Package
 Title: Simulate from the coalescent with recombination
 Version: 0.2
