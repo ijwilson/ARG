@@ -3,6 +3,7 @@
 */
 #ifndef UTILITYFUNCTIONALS_H_
 #define UTILITYFUNCTIONALS_H_
+#include <Rcpp.h>   // to get rid of #Rf_error is not a member of srd::codecvt_base
 #include <R.h>
 
 #include <vector>
@@ -67,7 +68,7 @@ T rescale( T *a, int count)
 {
   T sm = std::accumulate(a,a+count,0.0);
   sm /= (double)count;
-  for (int i=0;i<count;i++) a[i]/=sm;
+  for (int i=0; i<count; i++) a[i]/=sm;
   return log(sm);
 }
 
@@ -213,8 +214,7 @@ public:
 private:
   std::ostringstream oss;
   void print() {
-    Rprintf("%s",oss.str().c_str());
-
+    Rprintf("%s", oss.str().c_str());
   }
 };
 
